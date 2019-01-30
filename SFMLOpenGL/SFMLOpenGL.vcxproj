@@ -156,12 +156,16 @@ xcopy $(GLEW_SDK)\bin\Release\Win32 $(TargetDir) /C /Y</Command>
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Matrix3.h" />
+    <ClInclude Include="MyMatrix3.h" />
+    <ClInclude Include="MyVector3.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MyMatrix3.cpp" />
+    <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="stb_image.c" />
   </ItemGroup>
   <ItemGroup>

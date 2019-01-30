@@ -9,15 +9,14 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Vector3.h>
-#include <Matrix3.h>
+#include "MyMatrix3.h"
+#include "MyVector3.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 using namespace std;
 using namespace sf;
-using namespace gpp;
 
 class Game
 {
@@ -32,7 +31,8 @@ private:
 	void update();
 	void render();
 	void unload();
-
+	void points();
+	void keyInputs();
 	Clock clock;
 	Time elapsed;
 
