@@ -33,6 +33,30 @@ void Game::run()
 	}
 
 }
+string Game::load_file(const std::string & src)
+{
+	ifstream file;
+	file.open(((src).c_str()));
+	string line;
+	string output;
+
+	if (file.fail())
+	{
+		cout << "fail" << endl;
+	}
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			getline(file, line);
+			output.append(line + "\n");
+
+		}
+	}
+
+
+	return output;
+}
 
 typedef struct
 {
@@ -82,18 +106,7 @@ void Game::initialize()
 	DEBUG_MSG(glGetString(GL_RENDERER));
 	DEBUG_MSG(glGetString(GL_VERSION));
 
-	/* Vertices counter-clockwise winding */
-	//vertex[0].coordinate[0] = -0.5f;
-	//vertex[0].coordinate[1] = -0.5f;
-	//vertex[0].coordinate[2] = 0.0f;
 
-	//vertex[1].coordinate[0] = -0.5f;
-	//vertex[1].coordinate[1] = 0.5f;
-	//vertex[1].coordinate[2] = 0.0f;
-
-	//vertex[2].coordinate[0] = 0.5f;
-	//vertex[2].coordinate[1] = 0.5f;
-	//vertex[2].coordinate[2] = 0.0f;
 
 
 	points();
@@ -143,18 +156,23 @@ void Game::initialize()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Vert) * 36, triangles, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	/* Vertex Shader which would normally be loaded from an external file */
-	const char* vs_src = "#version 400\n\r"
-		"in vec4 sv_position;"
-		"in vec4 sv_color;"
-		"in vec2 sv_texel;"
-		"out vec4 color;"
-		"out vec2 texel;"
-		"void main() {"
-		"	color = sv_color;"
-		"	texel = sv_texel;"
-		"	gl_Position = sv_position;"
-		"}"; //Vertex Shader Src
+
+	/* Vertex Shader loaded from an external file */
+	string c = load_file("Vertex Shader.txt");
+	const char* vs_src = c.c_str();
+
+	
+	//const char* vs_src = "#version 400\n\r"
+	//	"in vec4 sv_position;"
+	//	"in vec4 sv_color;"
+	//	"in vec2 sv_texel;"
+	//	"out vec4 color;"
+	//	"out vec2 texel;"
+	//	"void main() {"
+	//	"	color = sv_color;"
+	//	"	texel = sv_texel;"
+	//	"	gl_Position = sv_position;"
+	//	"}"; //Vertex Shader Src
 
 	DEBUG_MSG("Setting Up Vertex Shader");
 
@@ -173,17 +191,22 @@ void Game::initialize()
 	{
 		DEBUG_MSG("ERROR: Vertex Shader Compilation Error");
 	}
+	/* Fragment Shader loaded from an external file */
+	string s = load_file("fragment Shader.txt");
+	const char* fs_src = s.c_str();
 
-	/* Fragment Shader which would normally be loaded from an external file */
-	const char* fs_src = "#version 400\n\r"
-		"uniform sampler2D f_texture;"
-		"in vec4 color;"
-		"in vec2 texel;"
-		"out vec4 fColor;"
-		"void main() {"
-		//"	fColor = vec4(0.0f, 1.0f, 0.0f, 1.0f);"
-		"	fColor = texture(f_texture, texel.st);"
-		"}"; //Fragment Shader Src
+
+
+	
+	//const char* fs_src = "#version 400\n\r"
+	//	"uniform sampler2D f_texture;"
+	//	"in vec4 color;"
+	//	"in vec2 texel;"
+	//	"out vec4 fColor;"
+	//	"void main() {"
+	//	//"	fColor = vec4(0.0f, 1.0f, 0.0f, 1.0f);"
+	//	"	fColor = texture(f_texture, texel.st);"
+	//	"}"; //Fragment Shader Src
 
 	DEBUG_MSG("Setting Up Fragment Shader");
 
@@ -281,18 +304,7 @@ void Game::update()
 
 	keyInputs();
 
-	//Change vertex data
-	/*vertex[0].coordinate[0] += -0.0001f;
-	vertex[0].coordinate[1] += -0.0001f;
-	vertex[0].coordinate[2] += -0.0001f;
 
-	vertex[1].coordinate[0] += -0.0001f;
-	vertex[1].coordinate[1] += -0.0001f;
-	vertex[1].coordinate[2] += -0.0001f;
-
-	vertex[2].coordinate[0] += -0.0001f;
-	vertex[2].coordinate[1] += -0.0001f;
-	vertex[2].coordinate[2] += -0.0001f;*/
 
 #if (DEBUG >= 2)
 	DEBUG_MSG("Update up...");
@@ -316,7 +328,7 @@ void Game::render()
 
 	/*	As the data positions will be updated by the this program on the
 		CPU bind the updated data to the GPU for drawing	*/
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vert) * 36, vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vert) * 36, finalVert, GL_STATIC_DRAW);
 
 	/*	Draw Triangle from VBO	(set where to start from as VBO can contain
 		model components that 'are' and 'are not' to be drawn )	*/
@@ -590,21 +602,21 @@ void Game::keyInputs()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		translation = (MyMatrix3::translation(MyVector3{ 0,0.01, 0 }) *translation);
+		translation = (MyMatrix3::translation(MyVector3{ 0,0.001, 0 }) *translation);
 	}
 	/* <summary>
 	key presses for the translation down
 	</summary>*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		translation = (MyMatrix3::translation(MyVector3{ 0, -0.01, 0 }) * translation);
+		translation = (MyMatrix3::translation(MyVector3{ 0, -0.001, 0 }) * translation);
 	}
 	/*<summary>
 	key presses for the translation left
 	</summary>*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		translation = (MyMatrix3::translation(MyVector3{ -0.01, 0, 0 }) * translation);
+		translation = (MyMatrix3::translation(MyVector3{ -0.001, 0, 0 }) * translation);
 
 	}
 	/* <summary>
@@ -612,7 +624,7 @@ void Game::keyInputs()
 	</summary>*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		translation = (MyMatrix3::translation(MyVector3{ 0.01, 0, 0 }) * translation);
+		translation = (MyMatrix3::translation(MyVector3{ 0.001, 0, 0 }) * translation);
 	}
 
 	for (int i = 0; i < 36; i++)

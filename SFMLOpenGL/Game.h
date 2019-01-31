@@ -8,7 +8,7 @@
 #include <GL/wglew.h>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
-
+#include <fstream>
 #include "MyMatrix3.h"
 #include "MyVector3.h"
 
@@ -33,6 +33,7 @@ private:
 	void unload();
 	void points();
 	void keyInputs();
+	string load_file(const std::string & src);
 	Clock clock;
 	Time elapsed;
 
