@@ -85,7 +85,7 @@ GLuint	index,		//Index to draw
 //const string filename = "texture.tga";
 //const string filename = "cube.tga";
 
-const string filename = "texture.tga";
+const string filename = "Crafting table.tga";
 
 int width; //width of texture
 int height; //height of texture
@@ -106,9 +106,6 @@ void Game::initialize()
 	DEBUG_MSG(glGetString(GL_RENDERER));
 	DEBUG_MSG(glGetString(GL_VERSION));
 
-
-
-
 	points();
 
 	vertex[0].color[0] = 1.0f;
@@ -125,7 +122,7 @@ void Game::initialize()
 	vertex[2].color[1] = 0.0f;
 	vertex[2].color[2] = 0.0f;
 	vertex[2].color[3] = 0.0f;
-
+/*
 	vertex[0].texel[0] = 0.5f;
 	vertex[0].texel[1] = 0.5f;
 
@@ -133,7 +130,18 @@ void Game::initialize()
 	vertex[1].texel[1] = 1.0f;
 
 	vertex[2].texel[0] = 1.0f;
-	vertex[2].texel[1] = 0.0f;
+	vertex[2].texel[1] = 0.0f;*/
+
+
+
+	vertex[0].texel[0] = 0.25f;
+	vertex[0].texel[1] = 0.33f;
+
+	vertex[1].texel[0] = 0.25f;
+	vertex[1].texel[1] = 0.33f;
+
+	vertex[2].texel[0] = 0.25f;
+	vertex[2].texel[1] = 0.33f;
 
 	/*Index of Poly / Triangle to Draw */
 	for (int i = 0; i < 36; i++)
