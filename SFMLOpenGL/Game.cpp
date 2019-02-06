@@ -1,7 +1,7 @@
 #include <Game.h>
 
 static bool flip;
-
+//new
 Game::Game() : window(VideoMode(800, 600), "OpenGL Cube Texturing")
 {
 }
@@ -85,7 +85,7 @@ GLuint	index,		//Index to draw
 //const string filename = "texture.tga";
 //const string filename = "cube.tga";
 
-const string filename = "Crafting table.tga";
+const string filename = "cube.tga";
 
 int width; //width of texture
 int height; //height of texture
@@ -144,7 +144,14 @@ void Game::initialize()
 
 	glGenBuffers(1, &index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+
+	/// <summary>
+	/// 
+	/// </summary>
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Vert) * 36, triangles, GL_STATIC_DRAW);
+	/// <summary>
+	/// 
+	/// </summary>
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
@@ -337,7 +344,8 @@ void Game::render()
 	glVertexAttribPointer(positionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);
 	glVertexAttribPointer(colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(3 * sizeof(float)));
 	glVertexAttribPointer(texelID, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(7 * sizeof(float)));
-
+	//glVertexAttribPointer(colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vert),0 );
+	//glVertexAttribPointer(texelID, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);
 	//Enable Arrays
 	glEnableVertexAttribArray(positionID);
 	glEnableVertexAttribArray(colorID);
