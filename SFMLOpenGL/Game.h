@@ -33,6 +33,7 @@ private:
 	void unload();
 	void points();
 	void keyInputs();
+	void setUpTexel();
 	string load_file(const std::string & src);
 	Clock clock;
 	Time elapsed;

@@ -122,26 +122,9 @@ void Game::initialize()
 	vertex[2].color[1] = 0.0f;
 	vertex[2].color[2] = 0.0f;
 	vertex[2].color[3] = 0.0f;
-/*
-	vertex[0].texel[0] = 0.5f;
-	vertex[0].texel[1] = 0.5f;
 
-	vertex[1].texel[0] = 1.0f;
-	vertex[1].texel[1] = 1.0f;
+	setUpTexel();
 
-	vertex[2].texel[0] = 1.0f;
-	vertex[2].texel[1] = 0.0f;*/
-
-
-
-	vertex[0].texel[0] = 0.25f;
-	vertex[0].texel[1] = 0.33f;
-
-	vertex[1].texel[0] = 0.25f;
-	vertex[1].texel[1] = 0.33f;
-
-	vertex[2].texel[0] = 0.25f;
-	vertex[2].texel[1] = 0.33f;
 
 	/*Index of Poly / Triangle to Draw */
 	for (int i = 0; i < 36; i++)
@@ -292,6 +275,10 @@ void Game::initialize()
 	colorID = glGetAttribLocation(progID, "sv_color");
 	texelID = glGetAttribLocation(progID, "sv_texel");
 	textureID = glGetUniformLocation(progID, "f_texture");
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
 }
 
 void Game::update()
@@ -348,8 +335,8 @@ void Game::render()
 	// Set pointers for each parameter
 	// https://www.opengl.org/sdk/docs/man4/html/glVertexAttribPointer.xhtml
 	glVertexAttribPointer(positionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);
-	glVertexAttribPointer(colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);
-	glVertexAttribPointer(texelID, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);
+	glVertexAttribPointer(colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(texelID, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (void*)(7 * sizeof(float)));
 
 	//Enable Arrays
 	glEnableVertexAttribArray(positionID);
@@ -529,6 +516,122 @@ void Game::points()
 	}
 
 }
+
+
+void Game::setUpTexel()
+{
+
+	vertex[0].texel[0] = 0.75f;
+	vertex[0].texel[1] = 0.33f;
+
+	vertex[1].texel[0] = 1.0f;
+	vertex[1].texel[1] = 0.33f;
+
+	vertex[2].texel[0] = 1.0f;
+	vertex[2].texel[1] = 0.66f;
+
+	vertex[3].texel[0] = 0.75f;
+	vertex[3].texel[1] = 0.66f;
+
+	vertex[4].texel[0] = 0.5f;
+	vertex[4].texel[1] = 0.33f;
+
+	vertex[5].texel[0] = 0.5f;
+	vertex[5].texel[1] = 0.66f;
+
+	vertex[6].texel[0] = 0.25f;
+	vertex[6].texel[1] = 0.0f;
+
+	vertex[7].texel[0] = 0.0f;
+	vertex[7].texel[1] = 0.33f;
+
+	vertex[8].texel[0] = 0.25f;
+	vertex[8].texel[1] = 0.33f;
+
+	vertex[9].texel[0] = 0.50f;
+	vertex[9].texel[1] = 0.66f;
+
+	vertex[10].texel[0] = 0.50f;
+	vertex[10].texel[1] = 0.33f;
+
+	vertex[11].texel[0] = 0.75f;
+	vertex[11].texel[1] = 0.33f;
+
+	vertex[12].texel[0] = 0.75f;
+	vertex[12].texel[1] = 0.33f;
+
+	vertex[13].texel[0] = 1.0f;
+	vertex[13].texel[1] = 0.66f;
+
+	vertex[14].texel[0] = 0.75f;
+	vertex[14].texel[1] = 0.66f;
+
+	vertex[15].texel[0] = 0.25f;
+	vertex[15].texel[1] = 0.33f;
+
+	vertex[16].texel[0] = 0.0f;
+	vertex[16].texel[1] = 0.33f;
+
+	vertex[17].texel[0] = 0.0f;
+	vertex[17].texel[1] = 0.0f;
+
+	vertex[18].texel[0] = 0.0f;
+	vertex[18].texel[1] = 0.66f;
+
+	vertex[19].texel[0] = 0.0f;
+	vertex[19].texel[1] = 0.33f;
+
+	vertex[20].texel[0] = 0.25f;
+	vertex[20].texel[1] = 0.33f;
+
+	vertex[21].texel[0] = 0.25f;
+	vertex[21].texel[1] = 0.66f;
+
+	vertex[22].texel[0] = 0.50f;
+	vertex[22].texel[1] = 0.33f;
+
+	vertex[23].texel[0] = 0.50f;
+	vertex[23].texel[1] = 0.66f;
+
+	vertex[24].texel[0] = 0.50f;
+	vertex[24].texel[1] = 0.33f;
+
+	vertex[25].texel[0] = 0.25f;
+	vertex[25].texel[1] = 0.33f;
+
+	vertex[26].texel[0] = 0.25f;
+	vertex[26].texel[1] = 0.33f;
+
+	vertex[27].texel[0] = 0.0f;
+	vertex[27].texel[1] = 0.66f;
+
+	vertex[28].texel[0] = 0.0f;
+	vertex[28].texel[1] = 1.0f;
+
+	vertex[29].texel[0] = 0.25f;
+	vertex[29].texel[1] = 1.0f;
+
+	vertex[30].texel[0] = 0.25f;
+	vertex[30].texel[1] = 0.66f;
+
+	vertex[31].texel[0] = 0.0f;
+	vertex[31].texel[1] = 1.0f;
+
+	vertex[32].texel[0] = 0.0f;
+	vertex[32].texel[1] = 0.66f;
+
+	vertex[33].texel[0] = 0.25f;
+	vertex[33].texel[1] = 0.66f;
+
+	vertex[34].texel[0] = 0.0f;
+	vertex[34].texel[1] = 0.66f;
+
+	vertex[35].texel[0] = 0.25f;
+	vertex[35].texel[1] = 0.33f;
+
+}
+
+
 void Game::keyInputs()
 {
 	//rotation
